@@ -1,12 +1,14 @@
-public class UseCase18TrainConsistMgmt {
+import java.util.Arrays;
+
+public class UseCase19TrainConsistMgmt {
 
     public static void main(String[] args) {
 
         System.out.println("======================================");
-        System.out.println(" UC18 - Linear Search for Bogie ID ");
+        System.out.println(" UC19 - Binary Search for Bogie ID ");
         System.out.println("======================================\n");
 
-        // Array of Bogie IDs
+        // Sorted Bogie IDs (IMPORTANT)
         String[] bogieIds = {
                 "BG101",
                 "BG205",
@@ -15,22 +17,35 @@ public class UseCase18TrainConsistMgmt {
                 "BG550"
         };
 
-        // Display all bogies
+        // Display bogies
         System.out.println("Available Bogie IDs:");
         for (String id : bogieIds) {
             System.out.println(id);
         }
 
-        // Search key (as per output)
+        // Search key
         String searchKey = "BG309";
 
+        int low = 0;
+        int high = bogieIds.length - 1;
         boolean found = false;
 
-        // LINEAR SEARCH
-        for (String id : bogieIds) {
-            if (id.equals(searchKey)) {
+        // BINARY SEARCH
+        while (low <= high) {
+
+            int mid = (low + high) / 2;
+
+            int comparison = searchKey.compareTo(bogieIds[mid]);
+
+            if (comparison == 0) {
                 found = true;
-                break; // early termination
+                break;
+            }
+            else if (comparison < 0) {
+                high = mid - 1; // search left
+            }
+            else {
+                low = mid + 1; // search right
             }
         }
 
@@ -41,6 +56,6 @@ public class UseCase18TrainConsistMgmt {
             System.out.println("\nBogie " + searchKey + " NOT found in train consist.");
         }
 
-        System.out.println("\nUC18 search completed...");
+        System.out.println("\nUC19 search completed...");
     }
 }
